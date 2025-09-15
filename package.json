@@ -6,6 +6,7 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
+    "build:gh-pages": "ng build --base-href=/IconModifier/",
     "test": "ng test",
     "lint": "ng lint"
   },
