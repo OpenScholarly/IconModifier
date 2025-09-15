@@ -1,0 +1,52 @@
+<div class="icon-selector">
+  <mat-form-field appearance="outline" class="full-width">
+    <mat-label>{{ label }}</mat-label>
+    <input 
+      matInput 
+      [formControl]="searchControl"
+      [placeholder]="placeholder"
+      (focus)="onInputFocus()"
+      (blur)="onInputBlur()"
+      autocomplete="off">
+    
+    <!-- Selected icon preview -->
+    <span *ngIf="selectedIcon" matPrefix class="icon-preview">
+      <span class="material-symbols-outlined">{{ selectedIcon }}</span>
+    </span>
+    
+    <!-- Clear button -->
+    <button *ngIf="selectedIcon" 
+            matSuffix 
+            mat-icon-button 
+            (click)="clearSelection()"
+            type="button">
+      <mat-icon>clear</mat-icon>
+    </button>
+  </mat-form-field>
+
+  <!-- Dropdown with icons -->
+  <div class="icon-dropdown" [class.open]="isDropdownOpen" *ngIf="filteredIcons$ | async as icons">
+    <div class="dropdown-content">
+      <div class="icon-grid">
+        <div 
+          *ngFor="let icon of icons | slice:0:50" 
+          class="icon-item"
+          [class.selected]="icon.name === selectedIcon"
+          (click)="onIconSelect(icon.name)">
+          <span class="material-symbols-outlined">{{ icon.name }}</span>
+          <span class="icon-name">{{ icon.name }}</span>
+        </div>
+      </div>
+      
+      <div *ngIf="icons.length === 0" class="no-results">
+        <mat-icon>search_off</mat-icon>
+        <p>No icons found</p>
+      </div>
+      
+      <div *ngIf="icons.length > 50" class="more-results">
+        <mat-icon>more_horiz</mat-icon>
+        <p>{{ icons.length - 50 }} more results. Refine your search.</p>
+      </div>
+    </div>
+  </div>
+</div>

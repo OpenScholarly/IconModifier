@@ -1,0 +1,135 @@
+.icon-preview-container {
+  height: 100%;
+
+  .preview-card {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+
+    mat-card-content {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+  }
+}
+
+.size-selector {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+
+  mat-label {
+    font-weight: 500;
+    color: #666;
+  }
+
+  .size-toggle-group {
+    display: flex;
+    flex-wrap: wrap;
+  }
+}
+
+.preview-area {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 150px;
+  padding: 24px;
+  border: 2px dashed #ddd;
+  border-radius: 8px;
+  background-color: #fafafa;
+  transition: all 0.3s ease;
+
+  &.with-background {
+    background: linear-gradient(45deg, #f0f0f0 25%, transparent 25%),
+                linear-gradient(-45deg, #f0f0f0 25%, transparent 25%),
+                linear-gradient(45deg, transparent 75%, #f0f0f0 75%),
+                linear-gradient(-45deg, transparent 75%, #f0f0f0 75%);
+    background-size: 16px 16px;
+    background-position: 0 0, 0 8px, 8px -8px, -8px 0px;
+  }
+
+  .icon-stack {
+    position: relative;
+    display: inline-block;
+    transition: all 0.3s ease;
+
+    .material-symbols-outlined {
+      display: block;
+      line-height: 1;
+    }
+  }
+}
+
+.preview-details {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 16px;
+  background-color: #f9f9f9;
+  border-radius: 4px;
+  font-size: 14px;
+
+  .detail-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .label {
+      font-weight: 500;
+      color: #666;
+      min-width: 80px;
+    }
+
+    .value {
+      color: #333;
+      font-family: 'Roboto Mono', monospace;
+      background: white;
+      padding: 2px 6px;
+      border-radius: 3px;
+      border: 1px solid #e0e0e0;
+    }
+  }
+}
+
+.background-toggle {
+  display: flex;
+  justify-content: center;
+  padding-top: 16px;
+  border-top: 1px solid #e0e0e0;
+
+  mat-slide-toggle {
+    ::ng-deep .mat-slide-toggle-label {
+      color: #666;
+    }
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .size-selector {
+    .size-toggle-group {
+      ::ng-deep mat-button-toggle {
+        font-size: 12px;
+        padding: 0 8px;
+      }
+    }
+  }
+
+  .preview-area {
+    min-height: 120px;
+    padding: 16px;
+  }
+
+  .preview-details {
+    .detail-row {
+      font-size: 13px;
+      
+      .label {
+        min-width: 70px;
+      }
+    }
+  }
+}

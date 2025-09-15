@@ -1,0 +1,59 @@
+<div class="position-selector">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>Modifier Position</mat-card-title>
+      <mat-card-subtitle>Choose where to place the modifier icon</mat-card-subtitle>
+    </mat-card-header>
+    
+    <mat-card-content>
+      <!-- Visual Position Grid -->
+      <div class="position-grid">
+        <div class="grid-container">
+          <!-- Visual representation of icon with positions -->
+          <div class="base-icon-visual">
+            <span class="material-symbols-outlined">mail</span>
+            
+            <!-- Position indicators -->
+            <div 
+              *ngFor="let position of positions"
+              class="position-indicator"
+              [class]="position.value"
+              [class.active]="selectedPosition === position.value"
+              (click)="onPositionChange(position.value)">
+              <span class="material-symbols-outlined modifier-dot">{{ position.icon }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Position Options -->
+      <div class="position-options">
+        <mat-radio-group 
+          [value]="selectedPosition"
+          (change)="onPositionChange($event.value)"
+          class="position-radio-group">
+          
+          <mat-radio-button 
+            *ngFor="let position of positions" 
+            [value]="position.value"
+            class="position-option">
+            <div class="option-content">
+              <mat-icon>{{ position.icon }}</mat-icon>
+              <span class="option-label">{{ position.label }}</span>
+            </div>
+          </mat-radio-button>
+        </mat-radio-group>
+      </div>
+
+      <!-- Current Selection Info -->
+      <div class="selection-info">
+        <mat-chip-listbox class="selection-chip">
+          <mat-chip-option selected>
+            <mat-icon matChipAvatar>{{ getSelectedPositionIcon() }}</mat-icon>
+            {{ getSelectedPositionLabel() }}
+          </mat-chip-option>
+        </mat-chip-listbox>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>

@@ -1,0 +1,61 @@
+/* Global Styles */
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+/* Material Icons Styles */
+.material-icons, .material-symbols-outlined {
+  font-family: 'Material Symbols Outlined';
+  font-weight: normal;
+  font-style: normal;
+  font-size: 24px;
+  line-height: 1;
+  letter-spacing: normal;
+  text-transform: none;
+  display: inline-block;
+  white-space: nowrap;
+  word-wrap: normal;
+  direction: ltr;
+  -webkit-font-feature-settings: 'liga';
+  font-feature-settings: 'liga';
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Custom Utility Classes */
+.icon-stack {
+  position: relative;
+  display: inline-block;
+}
+
+.icon-modifier {
+  position: absolute;
+  font-size: 0.6em;
+  background: white;
+  border-radius: 50%;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.3);
+}
+
+.icon-modifier.top-left {
+  top: -4px;
+  left: -4px;
+}
+
+.icon-modifier.top-right {
+  top: -4px;
+  right: -4px;
+}
+
+.icon-modifier.bottom-left {
+  bottom: -4px;
+  left: -4px;
+}
+
+.icon-modifier.bottom-right {
+  bottom: -4px;
+  right: -4px;
+}
+
+.icon-modifier.center {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}

@@ -1,0 +1,213 @@
+<div class="app-container">
+  <!-- Header -->
+  <mat-toolbar color="primary" class="app-header">
+    <mat-icon class="app-icon">auto_fix_high</mat-icon>
+    <span class="app-title">{{ title }}</span>
+    
+    <span class="spacer"></span>
+    
+    <button mat-icon-button 
+            (click)="resetComposition()" 
+            matTooltip="Reset to defaults"
+            class="reset-button">
+      <mat-icon>refresh</mat-icon>
+    </button>
+  </mat-toolbar>
+
+  <!-- Main Content -->
+  <div class="main-content">
+    <div class="content-grid">
+      
+      <!-- Left Panel - Controls -->
+      <div class="left-panel">
+        <mat-card class="controls-card">
+          <mat-card-header>
+            <mat-card-title>
+              <mat-icon>tune</mat-icon>
+              Icon Configuration
+            </mat-card-title>
+          </mat-card-header>
+          
+          <mat-card-content class="controls-content">
+            
+            <!-- Base Icon Selection -->
+            <div class="control-section">
+              <h3>Base Icon</h3>
+              <app-icon-selector
+                label="Base Icon"
+                placeholder="Search for base icon..."
+                [selectedIcon]="composition.baseIcon"
+                (iconSelected)="onBaseIconSelected($event)">
+              </app-icon-selector>
+            </div>
+
+            <!-- Modifier Icon Selection -->
+            <div class="control-section">
+              <h3>Modifier Icon</h3>
+              <app-icon-selector
+                label="Modifier Icon"
+                placeholder="Search for modifier..."
+                [selectedIcon]="composition.modifierIcon"
+                [showCommonOnly]="true"
+                (iconSelected)="onModifierIconSelected($event)">
+              </app-icon-selector>
+            </div>
+
+            <!-- Size Control -->
+            <div class="control-section">
+              <h3>Size</h3>
+              <mat-form-field appearance="outline" class="full-width">
+                <mat-label>Icon Size (px)</mat-label>
+                <input matInput 
+                       type="number" 
+                       min="16" 
+                       max="200" 
+                       [value]="composition.size"
+                       #sizeInput
+                       (change)="onSizeChange(+sizeInput.value)">
+              </mat-form-field>
+              
+              <mat-slider 
+                class="size-slider"
+                min="16" 
+                max="128" 
+                step="4"
+                thumbLabel>
+                <input 
+                  matSliderThumb 
+                  [(ngModel)]="composition.size"
+                  (ngModelChange)="onSizeChange($event)">
+              </mat-slider>
+            </div>
+
+            <!-- Color Controls -->
+            <div class="control-section">
+              <h3>Colors</h3>
+              <div class="color-controls">
+                <mat-form-field appearance="outline">
+                  <mat-label>Base Color</mat-label>
+                  <input matInput 
+                         type="color" 
+                         [value]="composition.color"
+                         #baseColorInput
+                         (change)="onColorChange(baseColorInput.value, 'base')">
+                </mat-form-field>
+                
+                <mat-form-field appearance="outline">
+                  <mat-label>Modifier Color</mat-label>
+                  <input matInput 
+                         type="color" 
+                         [value]="composition.modifierColor"
+                         #modifierColorInput
+                         (change)="onColorChange(modifierColorInput.value, 'modifier')">
+                </mat-form-field>
+              </div>
+            </div>
+
+          </mat-card-content>
+        </mat-card>
+
+        <!-- Position Selector -->
+        <app-position-selector
+          [selectedPosition]="composition.position"
+          (positionSelected)="onPositionSelected($event)">
+        </app-position-selector>
+      </div>
+
+      <!-- Center Panel - Preview -->
+      <div class="center-panel">
+        <app-icon-preview 
+          [composition]="composition"
+          [showBackground]="showPreviewBackground">
+        </app-icon-preview>
+      </div>
+
+      <!-- Right Panel - Code Output -->
+      <div class="right-panel">
+        <mat-card class="code-card">
+          <mat-card-header>
+            <mat-card-title>
+              <mat-icon>code</mat-icon>
+              Generated Code
+            </mat-card-title>
+          </mat-card-header>
+          
+          <mat-card-content class="code-content">
+            
+            <!-- Code Tabs -->
+            <mat-tab-group [(selectedIndex)]="activeTab" class="code-tabs">
+              
+              <!-- HTML Tab -->
+              <mat-tab label="HTML">
+                <div class="code-section">
+                  <div class="code-header">
+                    <span class="code-title">HTML Markup</span>
+                    <div class="code-actions">
+                      <button mat-icon-button 
+                              (click)="copyToClipboard(generatedCode.html)"
+                              matTooltip="Copy HTML">
+                        <mat-icon>content_copy</mat-icon>
+                      </button>
+                      <button mat-icon-button 
+                              (click)="downloadCode('html')"
+                              matTooltip="Download HTML">
+                        <mat-icon>download</mat-icon>
+                      </button>
+                    </div>
+                  </div>
+                  <pre class="code-block"><code>{{ generatedCode.html }}</code></pre>
+                </div>
+              </mat-tab>
+
+              <!-- CSS Tab -->
+              <mat-tab label="CSS">
+                <div class="code-section">
+                  <div class="code-header">
+                    <span class="code-title">CSS Styles</span>
+                    <div class="code-actions">
+                      <button mat-icon-button 
+                              (click)="copyToClipboard(generatedCode.css)"
+                              matTooltip="Copy CSS">
+                        <mat-icon>content_copy</mat-icon>
+                      </button>
+                      <button mat-icon-button 
+                              (click)="downloadCode('css')"
+                              matTooltip="Download CSS">
+                        <mat-icon>download</mat-icon>
+                      </button>
+                    </div>
+                  </div>
+                  <pre class="code-block"><code>{{ generatedCode.css }}</code></pre>
+                </div>
+              </mat-tab>
+
+              <!-- SVG Tab -->
+              <mat-tab label="SVG">
+                <div class="code-section">
+                  <div class="code-header">
+                    <span class="code-title">SVG Code</span>
+                    <div class="code-actions">
+                      <button mat-icon-button 
+                              (click)="copyToClipboard(generatedCode.svg)"
+                              matTooltip="Copy SVG">
+                        <mat-icon>content_copy</mat-icon>
+                      </button>
+                      <button mat-icon-button 
+                              (click)="downloadCode('svg')"
+                              matTooltip="Download SVG">
+                        <mat-icon>download</mat-icon>
+                      </button>
+                    </div>
+                  </div>
+                  <pre class="code-block"><code>{{ generatedCode.svg }}</code></pre>
+                </div>
+              </mat-tab>
+
+            </mat-tab-group>
+          </mat-card-content>
+        </mat-card>
+      </div>
+
+    </div>
+  </div>
+</div>
