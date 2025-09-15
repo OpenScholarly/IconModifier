@@ -35,9 +35,9 @@ jajava.app-container {
 
 .content-grid {
   display: grid;
-  grid-template-columns: 350px 1fr 400px;
+  grid-template-columns: 350px 350px 1fr 400px;
   gap: 24px;
-  max-width: 1400px;
+  max-width: 1800px;
   margin: 0 auto;
   min-height: calc(100vh - 120px);
 }
@@ -48,7 +48,6 @@ jajava.app-container {
   gap: 24px;
 
   .controls-card {
-    flex: 1;
 
     .controls-content {
       display: flex;
@@ -105,12 +104,11 @@ jajava.app-container {
 
   .size-slider {
     width: 100%;
-    margin-top: 16px;
   }
 
   .color-controls {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr .5fr 1fr;
     gap: 16px;
 
     mat-form-field {
@@ -224,6 +222,16 @@ jajava.app-container {
 @media (max-width: 768px) {
   .main-content {
     padding: 16px;
+  }
+
+  .icon-preview-card {
+    width: 100%;
+  }
+
+  .center-panel {
+    width: 100%;
+    display: flex;
+    justify-content: center;
   }
 
   .content-grid {

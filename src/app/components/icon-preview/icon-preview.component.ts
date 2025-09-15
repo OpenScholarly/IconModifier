@@ -33,12 +33,19 @@ export class IconPreviewComponent implements OnChanges {
 
   @Input() showBackground: boolean = false;
 
-  previewSizes = [
-    { name: 'Small', size: 24 },
-    { name: 'Medium', size: 48 },
-    { name: 'Large', size: 64 },
-    { name: 'Extra Large', size: 96 }
-  ];
+  previewSizes = window.innerWidth <= 600
+    ? [
+        { name: 'S', size: 24 },
+        { name: 'M', size: 48 },
+        { name: 'L', size: 64 },
+        { name: 'XL', size: 96 }
+      ]
+    : [
+        { name: 'Small', size: 24 },
+        { name: 'Medium', size: 48 },
+        { name: 'Large', size: 64 },
+        { name: 'Extra Large', size: 96 }
+      ];
 
   currentPreviewSize = 64;
 

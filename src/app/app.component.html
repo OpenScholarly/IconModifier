@@ -22,7 +22,7 @@
       <div class="left-panel">
         <mat-card class="controls-card">
           <mat-card-header>
-            <mat-card-title>
+            <mat-card-title style="display: flex; align-items: center; gap: 8px;">
               <mat-icon>tune</mat-icon>
               Icon Configuration
             </mat-card-title>
@@ -54,7 +54,7 @@
             </div>
 
             <!-- Size Control -->
-            <div class="control-section">
+            <div class="control-section" style="gap: 2px;">
               <h3>Size</h3>
               <mat-form-field appearance="outline" class="full-width">
                 <mat-label>Icon Size (px)</mat-label>
@@ -65,19 +65,19 @@
                        [value]="composition.size"
                        #sizeInput
                        (change)="onSizeChange(+sizeInput.value)">
+                <mat-slider 
+                  class="size-slider"
+                  min="16" 
+                  max="128" 
+                  step="4"
+                  thumbLabel>
+                  <input 
+                    matSliderThumb 
+                    [(ngModel)]="composition.size"
+                    (ngModelChange)="onSizeChange($event)">
+                </mat-slider>
               </mat-form-field>
               
-              <mat-slider 
-                class="size-slider"
-                min="16" 
-                max="128" 
-                step="4"
-                thumbLabel>
-                <input 
-                  matSliderThumb 
-                  [(ngModel)]="composition.size"
-                  (ngModelChange)="onSizeChange($event)">
-              </mat-slider>
             </div>
 
             <!-- Color Controls -->
@@ -92,6 +92,8 @@
                          #baseColorInput
                          (change)="onColorChange(baseColorInput.value, 'base')">
                 </mat-form-field>
+
+                <div></div>
                 
                 <mat-form-field appearance="outline">
                   <mat-label>Modifier Color</mat-label>
@@ -106,19 +108,21 @@
 
           </mat-card-content>
         </mat-card>
+      </div>
 
+      <div class="left-panel">
         <!-- Position Selector -->
         <app-position-selector
           [selectedPosition]="composition.position"
           (positionSelected)="onPositionSelected($event)">
         </app-position-selector>
       </div>
-
+      
       <!-- Center Panel - Preview -->
       <div class="center-panel">
         <app-icon-preview 
           [composition]="composition"
-          [showBackground]="showPreviewBackground">
+          [showBackground]="showPreviewBackground" class="icon-preview-card">
         </app-icon-preview>
       </div>
 
@@ -126,7 +130,7 @@
       <div class="right-panel">
         <mat-card class="code-card">
           <mat-card-header>
-            <mat-card-title>
+            <mat-card-title style="display: flex; align-items: center; gap: 8px;">
               <mat-icon>code</mat-icon>
               Generated Code
             </mat-card-title>
